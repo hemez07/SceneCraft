@@ -43,3 +43,26 @@ class NeRF(nn.Module):
 
 # Initialize model
 model = NeRF()
+
+
+
+# Define loss function and optimizer
+criterion = nn.MSELoss()
+optimizer = optim.Adam(model.parameters(), lr=0.001)
+
+# Generate random training data (replace with actual dataset later)
+num_samples = 1000
+train_data = torch.rand(num_samples, 3) * 2 - 1  # 3D coordinates in range [-1, 1]
+train_labels = torch.rand(num_samples, 4)  # Random RGB + density values
+
+# Training loop
+epochs = 50
+for epoch in range(epochs):
+    optimizer.zero_grad()
+    outputs = model(train_data)
+    loss = criterion(outputs, train_labels)
+    loss.backward()
+    optimizer.step()
+    print(f"Epoch {epoch+1}/{epochs} - Loss: {loss.item():.4f}")
+    
+    
